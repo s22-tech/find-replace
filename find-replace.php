@@ -59,7 +59,6 @@ ini_set('display_errors', 1);
 			echo "  -f <string>  = <string> to search for." . PHP_EOL;
 			echo "  -r <string>  = <string> to replace search_string with." . PHP_EOL;
 			echo "  -n <text>    = Limit to files with names containing <text>." . PHP_EOL;
-		// 	echo "  -m [egimosx] = PCRE s&r modifiers (default = none)." . PHP_EOL;
 			echo "<search_string>, <replacement> & <name_contains> are user entered strings." . PHP_EOL . PHP_EOL;
 			echo 'To run the replacement, remove "--help" from the command line and run it again.' . PHP_EOL . PHP_EOL;
 			exit;
