@@ -33,7 +33,7 @@ ini_set('display_errors', 1);
   // OPTIONS LEGEND | : = parameter requires value | :: = optional value | (no colon) = does not accept values.
 	$options = getopt('d:f:r:e:n::', ['test', 'help', 'no_recurse']);
 	$search_string      = $options['f'];        // Find string - mandatory.
-	$replacement_string = $options['r'];        // Replacement string - leave blank to delete search string.
+	$replacement_string = $options['r'] ?? '';  // Replacement string - leave blank to delete search string.
 	$file_ext_to_search = $options['e'];        // Only search files of these types.
 	$name_contains      = $options['n'] ?? '';  // Name contains string - partial matching - optional.
 	$top_level_dir = trim($options['d']) . DIRECTORY_SEPARATOR;  // Top level directory - mandatory.
@@ -92,7 +92,7 @@ ini_set('display_errors', 1);
 			colorize_text(string:"$total_files_changed file{$s} $were_was updated in $dir_count director{$ies}.", foreground_color:'black', background_color:'', newlines:2);
 		}
 		if ($total_files_changed > 0) {
-			echo "These files $tense updated:" . PHP_EOL;
+			colorize_text(string:"These files $tense updated:", foreground_color:'black', background_color:'', newlines:1);
 			echo $files_changed_list;
 			echo PHP_EOL;
 		}
@@ -120,11 +120,11 @@ function find_replace($dir, $find, $replace, $name_contains='') {
 	global $count, $dir_count, $dirs_to_skip, $file_ext_to_search, $options, $limit_to_dirs;
 
   // Skip these directories...
-	if (str_contains_array($dir, $dirs_to_skip)) return;
-echo $dir . PHP_EOL;
+	if (str_contains_array(haystack:$dir, needles:$dirs_to_skip)) return;
+// echo $dir . PHP_EOL;
 
   // Narrow down the search scope...
-	if (!str_contains_array($dir, $limit_to_dirs)) return;
+	if (!str_contains_array(haystack:$dir, needles:$limit_to_dirs)) return;
 
 	colorize_text(string:PHP_EOL ."Searching for files in directory '$dir'", foreground_color:'green', background_color:'', newlines:1);
 	$file_cnt = 0;
