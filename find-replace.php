@@ -27,8 +27,9 @@ ini_set('display_errors', 1);
 							'/upload', '/vendor', '/--', '/_', '.svg',
 						 ];
 
-  // Limit the search to paths with the following parts...
-	$limit_to_dirs = ['/projects', '/public_html',];
+  // Limit the search to paths with the following paths...
+	$user = get_current_user();
+	$limit_to_dirs = ['/Users/'.$user, '/usr/local', ];
 
   // OPTIONS LEGEND | : = parameter requires value | :: = optional value | (no colon) = does not accept values.
 	$options = getopt('d:f:r:e:n::', ['test', 'help', 'no_recurse']);
@@ -121,7 +122,6 @@ function find_replace($dir, $find, $replace, $name_contains='') {
 
   // Skip these directories...
 	if (str_contains_array(haystack:$dir, needles:$dirs_to_skip)) return;
-// echo $dir . PHP_EOL;
 
   // Narrow down the search scope...
 	if (!str_contains_array(haystack:$dir, needles:$limit_to_dirs)) return;
@@ -196,6 +196,7 @@ function replace_string($dir_file, $count, $temp) {
 function perform_replacement($file, $dir_file, $find, $replace) {
 	global $options, $total_files_changed, $temp1, $temp2, $cnt, $files_changed_list, $count;
 	$temp1 = file_get_contents($dir_file);
+
   // Only replace file contents if string was found.
 	if (str_contains($temp1, $find)) {
 		$temp2    = str_replace($find, $replace, $temp1, $cnt);
