@@ -6,7 +6,7 @@ https://gist.github.com/twhitney11/3803245
 
 and decided to update it to work with PHP 8.
 
-*Tested on PHP versions 8.0. to 8.4*
+*Tested on PHP versions 8.0 to 8.4*
 
 It now allows the file-types-to-search to be input on the command line.
 
